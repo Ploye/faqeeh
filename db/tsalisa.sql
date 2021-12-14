@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Des 2021 pada 12.39
--- Versi server: 10.4.19-MariaDB
--- Versi PHP: 7.4.20
+-- Generation Time: Dec 14, 2021 at 11:28 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,31 +24,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `barang`
+-- Table structure for table `barang`
 --
 
 CREATE TABLE `barang` (
-  `kode_barang` varchar(6) NOT NULL,
-  `nama_barang` varchar(8) NOT NULL,
+  `kode_barang` varchar(20) NOT NULL,
+  `nama_barang` varchar(20) NOT NULL,
   `jenis_barang` varchar(15) NOT NULL,
-  `warna` varchar(7) NOT NULL,
-  `ukuran_kerudung` varchar(3) NOT NULL,
-  `jenis_kain` varchar(10) NOT NULL,
-  `harga_satuan` double NOT NULL,
-  `stok` int(2) NOT NULL
+  `warna` varchar(20) NOT NULL,
+  `ukuran_kerudung` varchar(20) NOT NULL,
+  `jenis_kain` varchar(20) NOT NULL,
+  `harga_satuan` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `barang`
+-- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`kode_barang`, `nama_barang`, `jenis_barang`, `warna`, `ukuran_kerudung`, `jenis_kain`, `harga_satuan`, `stok`) VALUES
-('E-0001', 'adaw', 'adaw', 'adaw', '', 'asd', 123, 0);
+INSERT INTO `barang` (`kode_barang`, `nama_barang`, `jenis_barang`, `warna`, `ukuran_kerudung`, `jenis_kain`, `harga_satuan`) VALUES
+('B001', 'Cadar', 'Poni', 'Merah', 'M', 'Katun', 5000),
+('B002', 'Kerudung', 'Segi Empat', 'Coklat', 'L', 'Katun', 2000),
+('B003', 'Masker', 'Buff', 'Coklat', 'M', 'Drill', 8000),
+('B004', 'Cadar', 'Massir', 'Coklat', 'XXL', 'Katun', 10);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master barang`
+-- Table structure for table `master barang`
 --
 
 CREATE TABLE `master barang` (
@@ -59,12 +61,11 @@ CREATE TABLE `master barang` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `permintaan`
+-- Table structure for table `permintaan`
 --
 
 CREATE TABLE `permintaan` (
-  `id` int(11) NOT NULL,
-  `kode_pesanan` int(100) NOT NULL,
+  `kode_pesanan` varchar(20) NOT NULL,
   `nama` varchar(25) NOT NULL,
   `no_hp` int(12) NOT NULL,
   `jumlah_pesanan` int(100) NOT NULL,
@@ -75,16 +76,18 @@ CREATE TABLE `permintaan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `permintaan`
+-- Dumping data for table `permintaan`
 --
 
-INSERT INTO `permintaan` (`id`, `kode_pesanan`, `nama`, `no_hp`, `jumlah_pesanan`, `total_harga`, `status_pesanan`, `dp`, `jenis_pesanan`) VALUES
-(1, 12, 'faqih', 613435251, 2, 250000, 'Terpenuhi', 80000, 'kerudung pasminah');
+INSERT INTO `permintaan` (`kode_pesanan`, `nama`, `no_hp`, `jumlah_pesanan`, `total_harga`, `status_pesanan`, `dp`, `jenis_pesanan`) VALUES
+('P001', 'dasd', 432, 34, 3432, 'Tidak Terpenuhi', 200, 'asdas'),
+('P002', 'Albert', 8932, 2, 2000, 'Terpenuhi', 60, 'teing'),
+('P003', 'uyeh', 9342, 2, 200, 'Tidak Terpenuhi', 22, 'sdas');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tlogin`
+-- Table structure for table `tlogin`
 --
 
 CREATE TABLE `tlogin` (
@@ -93,7 +96,7 @@ CREATE TABLE `tlogin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tlogin`
+-- Dumping data for table `tlogin`
 --
 
 INSERT INTO `tlogin` (`user`, `password`) VALUES
@@ -102,7 +105,7 @@ INSERT INTO `tlogin` (`user`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 CREATE TABLE `transaksi` (
@@ -114,14 +117,14 @@ CREATE TABLE `transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `transaksi`
+-- Dumping data for table `transaksi`
 --
 
 INSERT INTO `transaksi` (`id`, `kd_brg`, `qty`, `harga`, `tanggal`) VALUES
 (1, '1', 2, 31110, '2021-08-23');
 
 --
--- Trigger `transaksi`
+-- Triggers `transaksi`
 --
 DELIMITER $$
 CREATE TRIGGER `qty` AFTER INSERT ON `transaksi` FOR EACH ROW BEGIN
@@ -136,35 +139,29 @@ DELIMITER ;
 --
 
 --
--- Indeks untuk tabel `barang`
+-- Indexes for table `barang`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`kode_barang`);
 
 --
--- Indeks untuk tabel `permintaan`
+-- Indexes for table `permintaan`
 --
 ALTER TABLE `permintaan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`kode_pesanan`);
 
 --
--- Indeks untuk tabel `transaksi`
+-- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `permintaan`
---
-ALTER TABLE `permintaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT untuk tabel `transaksi`
+-- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
   MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2342343;
