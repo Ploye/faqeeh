@@ -300,7 +300,7 @@ private void koneksi() {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 440, 980, 290);
+        jScrollPane1.setBounds(10, 440, 950, 260);
 
         jLabel11.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         jLabel11.setText("Cari");
